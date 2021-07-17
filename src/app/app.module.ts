@@ -9,6 +9,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FormGroupComponent } from './forms/form-group/form-group.component';
 import { CardComponent } from './container/card/card.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AlertComponent } from './message/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { CardComponent } from './container/card/card.component';
     LoginComponent,
     HomeComponent,
     FormGroupComponent,
-    CardComponent
+    CardComponent,
+    DashboardComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

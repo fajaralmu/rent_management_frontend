@@ -95,6 +95,26 @@ export class UserService {
     return this.http.post<WebResponse>(getHost()+"api/public/requestid", {},
      commonHeaders(false));
   }
+
+  /**
+   * logout
+   */
+  public logout() : Promise<boolean> {
+    return new Promise<boolean> ((res, rej)=>{
+      this.http.post<WebResponse>(getHost()+"api/app/account/logout", {},
+      commonHeaders(true)).subscribe((resp)=>{
+        this.handleLoggedOut();
+        res(true);
+      }, (err)=>{
+        res(false);
+      })
+    });
+  }
+  handleLoggedOut() {
+    
+    setLoginKeyCookie(null);
+    this.loggedUser = undefined;
+  }
   
   /**
    * handleInitialLoading

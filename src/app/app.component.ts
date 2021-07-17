@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './service/user.service';
 import { WebResponse } from './models/web-response';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AlertService } from './service/alert.service';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +14,11 @@ export class AppComponent implements OnInit {
   initialLoading:boolean = false;
   initialLoadingSuccess:boolean|undefined;
   initialLoadingCount:number = 0;
+ 
   
   headerContent: string = "Welcome";
 
-  constructor(private userService:UserService, private router:Router){
+  constructor(private userService:UserService, private router:Router, public alert:AlertService){
 
   }
   ngOnInit(): void {
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
     if (this.userService.profile) {
       this.headerContent = this.userService.profile.name;
     }
+     
   }
   initialLoadingOnFailed = (err:any) => {
     this.initialLoadingCount++;
@@ -52,6 +54,35 @@ export class AppComponent implements OnInit {
     )
     console.error(err.error);
   }
+
+  logout = () => {
+    this.alert.showConfirm("Logout?")
+    .then(ok=> {
+      if (!ok) return;
+      this.doLogout();
+    });
+  }
+
+  private doLogout() {
+    this.userService.logout().then(success=>{
+      if (success) {
+        this.userService.validateLoggedUser();
+      } else {
+        this.alert.showInfo("Error logout");
+      }
+    });
+  }
+
+  loggedUser = () => {
+    return this.userService.user;
+  }
+
+  /**
+   * ALERT ---------------
+   */
+  
+
+  
 
   
 }

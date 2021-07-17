@@ -1,24 +1,25 @@
-<div class="container-fluid">
+
    
     <div *ngIf="loginSuccess === false" class="text-center alert alert-danger">
-        <p>Login failed</p>
+        <p>Login failed. Please try again</p>
     </div>
     <div *ngIf="loginSuccess === true" class="text-center alert alert-primary">
-        <p>Login success</p>
+        <p>Login success. Redirecting to dashboard</p>
     </div>
 
-
-    <form ngNativeValidate (submit) ="login()" >
-        <app-form-group label="Username">
-            <input autocomplete="off" class="form-control" placeholder="username" required [(ngModel)]="username" name="username"/>
-        </app-form-group>
-        <app-form-group label="Password">
-            <input autocomplete="off" class="form-control" type="password" placeholder="password" required [(ngModel)]="password" name="password"/>
-        </app-form-group>
-        <app-form-group label="">
-            <input type="submit" class="btn btn-success" value="Login" />
-        </app-form-group>
-    </form>
-     
-</div>
+<app-card *ngIf="loginSuccess !== true" header="Login" width="80vw">
+    <div  class="container-fluid">
+        <form  ngNativeValidate (submit) ="login()" style="padding-top: 20px" > 
+            <app-form-group label="Username">
+                <input autocomplete="off" class="form-control" placeholder="username" required [(ngModel)]="username" name="username"/>
+            </app-form-group>
+            <app-form-group label="Password">
+                <input autocomplete="off" class="form-control" type="password" placeholder="password" required [(ngModel)]="password" name="password"/>
+            </app-form-group>
+            <app-form-group label="">
+                <input type="submit" class="btn btn-success" value="Login" />
+            </app-form-group>
+        </form>
+    </div>
+</app-card> 
 
