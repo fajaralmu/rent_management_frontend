@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-pagination-button',
+  selector: 'div[app-pagination-button]',
   templateUrl: './pagination-button.component.html',
   styleUrls: ['./pagination-button.component.css']
 })

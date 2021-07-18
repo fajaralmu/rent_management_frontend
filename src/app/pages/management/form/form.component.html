@@ -1,0 +1,39 @@
+<div *ngIf="property">
+    <h2>{{property.alias}}</h2>
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a routerLink="/management" class="page-link bg-dark text-white">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a routerLink="{{'/management/'+property.entityName}}" class="page-link bg-secondary text-white">
+                        <i class="fas fa-list"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="border border-dark rounded">
+        <form style="padding: 10px; width: 80vw;">
+            <ng-container *ngFor="let element of property.elements">
+                <app-form-group label={{element.labelName}}>
+                    <ng-container *ngIf="element.identity !== true">
+                        <input *ngIf="element.fieldType == 'FIELD_TYPE_TEXT' " 
+                            class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} />
+                        <input type="number" *ngIf="element.fieldType == 'FIELD_TYPE_NUMBER' " 
+                            class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} />
+                        <textarea  *ngIf="element.fieldType == 'FIELD_TYPE_TEXTAREA' " 
+                            class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} >
+                        </textarea>
+                    </ng-container>
+                    <ng-container *ngIf="element.identity === true">
+                        <input type="text" value="Generated ID" class="form-control" readonly/>
+                    </ng-container>
+                </app-form-group>
+            </ng-container>
+        </form>
+    </div>
+</div>

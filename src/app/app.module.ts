@@ -16,6 +16,7 @@ import { ManagementDetailComponent } from './pages/management/management-detail/
 import { DataTableHeaderComponent } from './pages/management/data-table-header/data-table-header.component';
 import { PaginationButtonComponent } from './navigation/pagination-button/pagination-button.component';
 import { DataTableContentComponent } from './pages/management/data-table-content/data-table-content.component';
+import { FormComponent } from './pages/management/form/form.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DataTableContentComponent } from './pages/management/data-table-content
     ManagementDetailComponent,
     DataTableHeaderComponent,
     PaginationButtonComponent,
-    DataTableContentComponent
+    DataTableContentComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,

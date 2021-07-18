@@ -2,10 +2,21 @@
     <tr *ngFor="let item of items, let i = index">
         <td>{{ recordNumber(i) }}</td>
         <td *ngFor="let element of property.elements" >
-            <span *ngIf="element.fieldType == 'FIELD_TYPE_TEXT'">
-                {{item[element.id]}}
-            </span>
-
+            <div style="min-width: 100px;" *ngIf="item[element.id] || false === item[element.id]">
+                <span *ngIf="element.fieldType == 'FIELD_TYPE_TEXT' || element.fieldType == 'FIELD_TYPE_NUMBER'">
+                    {{ item[element.id] }}
+                </span>
+                <span *ngIf="element.fieldType == 'FIELD_TYPE_TEXTAREA'">
+                    {{ item[element.id].toString().substring(0, 20) }}
+                </span>
+                <span *ngIf="element.fieldType == 'FIELD_TYPE_FIXED_LIST' || element.fieldType == 'FIELD_TYPE_DYNAMIC_LIST'">
+                    {{ item[element.id][element.optionItemName] }}
+                </span>
+                <span *ngIf="element.fieldType == 'FIELD_TYPE_CHECKBOX'">
+                    {{ (item[element.id] === true ?"Yes":"No") }}
+                </span>
+            </div>
+            
         </td>
     </tr>
 </ng-container>

@@ -2,8 +2,7 @@ import { FieldType } from "../constants/field-type"
 
 export interface EntityElement {
     editable: boolean;
-    id: string;
-    type: string;
+    id: string; 
     labelName: string;
     optionItemName: string;
     entityReferenceClass: string;
