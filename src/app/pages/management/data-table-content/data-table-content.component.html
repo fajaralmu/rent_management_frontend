@@ -1,0 +1,11 @@
+<ng-container *ngIf="property && filter">
+    <tr *ngFor="let item of items, let i = index">
+        <td>{{ recordNumber(i) }}</td>
+        <td *ngFor="let element of property.elements" >
+            <span *ngIf="element.fieldType == 'FIELD_TYPE_TEXT'">
+                {{item[element.id]}}
+            </span>
+
+        </td>
+    </tr>
+</ng-container>

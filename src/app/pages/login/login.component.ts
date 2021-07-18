@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   username:string = "";
   password:string = "";
   loginSuccess:boolean | undefined;
+  loading:boolean = false;
+
   constructor(private userService:UserService, private router:Router) { }
 
   ngOnInit(): void {
@@ -26,6 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   login = (): void => {
+    this.loading = true;
     this.loginSuccess = undefined;
     this.userService.login(this.username, this.password)
       .then(this.handleResponse);
@@ -37,6 +40,7 @@ export class LoginComponent implements OnInit {
     } else {
       this.loginSuccess = false;
     }
+    this.loading = false;
   }
 
 }

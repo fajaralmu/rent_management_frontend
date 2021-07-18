@@ -9,6 +9,21 @@ import { User } from './../../models/user';
 })
 export class DashboardComponent implements OnInit {
 
+  menus:Record<string, string>[] = [
+    {
+      label:'Transaction',
+      link:'/transaction'
+    },
+    {
+      label:'Management',
+      link:'/management'
+    },
+    {
+      label:'Update Stock',
+      link:'/addstock'
+    },
+  ]
+
   constructor(private userService: UserService) { }
   
   public get user() :User|undefined {

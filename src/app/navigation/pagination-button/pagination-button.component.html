@@ -1,0 +1,16 @@
+<div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" (click)="prevPage()">Previous</a>
+            </li>
+            <li *ngFor="let page of buttonIndexes()" >
+                <a   class="page-link" (click)="navigate(page-1)" >
+                    <strong *ngIf="page-1 == currentPage">{{page}}</strong>
+                    <span *ngIf="page-1 != currentPage">{{page}}</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" (click)="nextPage()">Next</a></li>
+        </ul>
+    </nav>
+</div>

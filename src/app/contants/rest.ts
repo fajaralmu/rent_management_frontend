@@ -15,13 +15,15 @@ export const commonHeaders = (authenticated:boolean = false) => {
         return {
             headers: {
                 'requestid':getCookie(REQ_ID_KEY),
-                'Authorization': 'Bearer '+ loginKey
+                'Authorization': 'Bearer '+ loginKey,
+                
             }
         };
     } 
     return unauthorizedHeader();
      
 }
+
 const unauthorizedHeader = () => {
     return {
         headers: {

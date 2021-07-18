@@ -1,0 +1,12 @@
+<div class="container-fluid">
+    <h2 class="text-center">Management</h2>
+    <div class="row" *ngIf="pages()">
+        <div class="col-md-4 text-center" *ngFor="let page of pages()" >
+            <a routerLink="{{'/management/'+page.entityName}}">
+                <h1><i class="{{page.iconClassName}}"></i></h1>
+            </a>
+            <p>{{page.label}}</p>
+        </div>
+    </div>
+</div>
+

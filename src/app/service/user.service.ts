@@ -15,6 +15,7 @@ const FORM_URL_ENCODED:string = 'application/x-www-form-urlencoded';
 })
 export class UserService {
   
+  
 
   private loggedUser:User|undefined;
   private applicationProfile:ApplicationProfile|undefined;
@@ -28,6 +29,9 @@ export class UserService {
 
   constructor(private http:HttpClient, private router:Router) { }
 
+  public updateToken = (resp: HttpResponse<any>) => {
+    setLoginKeyCookie(resp.headers.get("access-token"));
+  }
 
  /**
   * 
@@ -59,7 +63,7 @@ export class UserService {
 
   private handleSuccessLogin = (resp:HttpResponse<WebResponse>) => {
     this.loggedUser = resp.body?.user;
-    setLoginKeyCookie(resp.headers.get("access-token"));
+    this.updateToken(resp);
   }
 
   private get loginHeader() {
@@ -73,11 +77,12 @@ export class UserService {
   /**
    * validateLoggedUser
    */
-  public validateLoggedUser = ():boolean => {
+  public validateLoggedUser = (callback?:()=>void):boolean => {
     if (!this.loggedUser) {
       this.router.navigate(["/login"]);
       return false;
     }
+    if (callback) callback();
     return true;
   }
   /**

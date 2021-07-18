@@ -11,6 +11,11 @@ import { FormGroupComponent } from './forms/form-group/form-group.component';
 import { CardComponent } from './container/card/card.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AlertComponent } from './message/alert/alert.component';
+import { ManagementComponent } from './pages/management/management.component';
+import { ManagementDetailComponent } from './pages/management/management-detail/management-detail.component';
+import { DataTableHeaderComponent } from './pages/management/data-table-header/data-table-header.component';
+import { PaginationButtonComponent } from './navigation/pagination-button/pagination-button.component';
+import { DataTableContentComponent } from './pages/management/data-table-content/data-table-content.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +25,12 @@ import { AlertComponent } from './message/alert/alert.component';
     FormGroupComponent,
     CardComponent,
     DashboardComponent,
-    AlertComponent
+    AlertComponent,
+    ManagementComponent,
+    ManagementDetailComponent,
+    DataTableHeaderComponent,
+    PaginationButtonComponent,
+    DataTableContentComponent
   ],
   imports: [
     BrowserModule,

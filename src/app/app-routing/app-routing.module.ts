@@ -3,20 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './../pages/login/login.component';
 import { HomeComponent } from './../pages/home/home.component';
 import { DashboardComponent } from './../pages/dashboard/dashboard.component';
+import { ManagementComponent } from './../pages/management/management.component';
+import { ManagementDetailComponent } from './../pages/management/management-detail/management-detail.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: '/index', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'index', component: HomeComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'management', component: ManagementComponent },
+  { path: 'management/:entityName', component: ManagementDetailComponent },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-
-
-
-exports: [RouterModule]
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

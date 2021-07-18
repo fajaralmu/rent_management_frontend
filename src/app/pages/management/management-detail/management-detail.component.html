@@ -1,0 +1,23 @@
+<div *ngIf="!property" class="alert alert-warning">
+    <h3>Loading Property</h3>
+</div>
+<div *ngIf="property">
+    <h2>{{property.alias}}</h2>
+    <app-pagination-button 
+        [currentPage]="filter.page"
+        [totalData]="totalData"
+        [limit]="filter.limit"
+        (goToPage)="loadItems($event)"
+        
+    ></app-pagination-button>
+
+    <table class="table">
+        <thead app-data-table-header  (updateOrder)="updateOrder($event)"
+        [property]="property" [filter]="filter"></thead>
+        <tbody app-data-table-content *ngIf="items" [items]="items" [filter]="filter" [property]="property">
+
+        </tbody>
+    </table>
+</div>
+ 
+

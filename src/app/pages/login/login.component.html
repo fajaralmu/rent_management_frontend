@@ -16,8 +16,11 @@
             <app-form-group label="Password">
                 <input autocomplete="off" class="form-control" type="password" placeholder="password" required [(ngModel)]="password" name="password"/>
             </app-form-group>
-            <app-form-group label="">
+            <app-form-group *ngIf="!loading" label="">
                 <input type="submit" class="btn btn-success" value="Login" />
+            </app-form-group>
+            <app-form-group *ngIf="loading" label="">
+                <i>Please wait..</i>
             </app-form-group>
         </form>
     </div>
