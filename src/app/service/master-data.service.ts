@@ -59,14 +59,49 @@ export class MasterDataService {
   /**
    * loadConfig
    */
-  public loadConfig = (entityName: string): Promise<any> => {
-    if (this.getProperty(entityName) !== undefined) {
-      return new Promise((res, rej) => {
-        res(true);
+  public loadConfig = (entityName: string): Promise<EntityProperty  > => {
+    const existingProperty = this.getProperty(entityName);
+    if (existingProperty !== undefined) {
+      return new Promise<EntityProperty>((resolve, rej) => {
+        resolve(existingProperty);
       });
     }
     const url = getHost()+"api/app/entity/configv2";
-    return this.ajax.commonAuthorizedAjax<WebResponse> (url, {entity:entityName}, this.postLoadConfig);
+    return new Promise<EntityProperty>((resolve, reject)=>{
+      this.ajax.commonAuthorizedAjax<WebResponse> (url, {entity:entityName}, this.postLoadConfig)
+      .then((response:WebResponse)=>{
+        resolve(response.entityProperty);
+      }).catch(reject);
+    }) 
+  }
+
+  /**
+   * submit
+   */
+  public submit = (model:any, entityName:string, newRecord:boolean = false) : Promise<WebResponse> => {
+    const url = getHost()+"api/app/entity/" + (newRecord?"add":"update");
+    return this.ajax.commonAuthorizedAjax<WebResponse> (url, {[entityName]:model, entity:entityName});
+  }
+
+  /**
+   * loadSingleRecord
+   */
+  public loadSingleRecord = (entityProperty: EntityProperty, id:any):Promise<WebResponse> => {
+    const filter:Filter = new Filter();
+    filter.fieldsFilter[entityProperty.idField]= id;
+    filter.limit = 1;
+    const url = getHost()+"api/app/entity/get";
+    return this.ajax.commonAuthorizedAjax<WebResponse> (url, { filter:filter,entity:entityProperty.entityName});
+  }
+
+  /**
+   * delete
+   */
+  public delete = (entityProperty: EntityProperty, id:any):Promise<WebResponse> => {
+    const url = getHost()+"api/app/entity/delete";
+    const filter:Filter = new Filter();
+    filter.fieldsFilter[entityProperty.idField]= id;
+    return this.ajax.commonAuthorizedAjax<WebResponse> (url, { filter:filter,entity:entityProperty.entityName});
   }
 
   private postLoadConfig = (response:WebResponse) => {

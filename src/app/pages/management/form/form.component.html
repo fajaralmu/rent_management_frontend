@@ -17,23 +17,32 @@
         </div>
     </div>
     <div class="border border-dark rounded">
-        <form style="padding: 10px; width: 80vw;">
+        <form (submit)="submit($event)" style="padding: 10px; width: 80vw;">
             <ng-container *ngFor="let element of property.elements">
                 <app-form-group label={{element.labelName}}>
                     <ng-container *ngIf="element.identity !== true">
-                        <input *ngIf="element.fieldType == 'FIELD_TYPE_TEXT' " 
+                        <input *ngIf="element.fieldType == 'FIELD_TYPE_TEXT' "  [(ngModel)]="model[element.id]"
                             class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} />
-                        <input type="number" *ngIf="element.fieldType == 'FIELD_TYPE_NUMBER' " 
+                        
+                        <input type="number" *ngIf="element.fieldType == 'FIELD_TYPE_NUMBER' " [(ngModel)]="model[element.id]"   
                             class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} />
-                        <textarea  *ngIf="element.fieldType == 'FIELD_TYPE_TEXTAREA' " 
+                        
+                        <textarea  *ngIf="element.fieldType == 'FIELD_TYPE_TEXTAREA' " [(ngModel)]="model[element.id]"  
                             class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} >
                         </textarea>
                     </ng-container>
-                    <ng-container *ngIf="element.identity === true">
+                    <ng-container *ngIf="element.identity === true && modelId === undefined">
                         <input type="text" value="Generated ID" class="form-control" readonly/>
+                    </ng-container>
+                    <ng-container *ngIf="element.identity === true && modelId !== undefined">
+                        <input type="text" value={{modelId}} class="form-control" readonly/>
                     </ng-container>
                 </app-form-group>
             </ng-container>
+            
+            <app-form-group label="">
+                <input type="submit" class="btn btn-success" value="Save" />
+            </app-form-group>
         </form>
     </div>
 </div>

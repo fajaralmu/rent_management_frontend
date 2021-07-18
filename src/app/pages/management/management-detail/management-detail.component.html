@@ -4,19 +4,24 @@
 <div *ngIf="property">
     <h2>{{property.alias}}</h2>
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <ul class="pagination">
                 <li class="page-item">
-                    <a routerLink="/management" class="page-link bg-dark text-white">
+                    <a routerLink="/management" class="page-link border border-dark bg-dark text-white">
                         <i class="fas fa-arrow-left"></i>
                     </a>
                 </li>
                 <li class="page-item">
-                    <a routerLink="{{'/management/form/'+property.entityName}}" class="page-link bg-secondary text-white">Add Record</a>
+                    <a routerLink="{{'/management/form/'+property.entityName}}" class="page-link border border-secondary bg-secondary text-white">Add Record</a>
+                </li>
+                <li class="page-item">
+                    <a  class="page-link " (click)="loadItems(0)">
+                        <i class="fa fa-redo"></i>
+                    </a>
                 </li>
             </ul>
         </div>
-        <div class="col-md-10" app-pagination-button 
+        <div class="col-md-9" app-pagination-button 
             [currentPage]="filter.page"
             [totalData]="totalData"
             [limit]="filter.limit"

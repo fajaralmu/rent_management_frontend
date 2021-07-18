@@ -33,7 +33,7 @@ const unauthorizedHeader = () => {
     }
 };
 export const setLoginKeyCookie = (cookieValue:any) => {
-    console.debug("cookieValue: ", cookieValue);
+    // console.debug("cookieValue: ", cookieValue);
     setCookie(LOGIN_KEY, cookieValue);
 }
 const setCookie = (cname:string, cvalue:string, exdays=1) => {
