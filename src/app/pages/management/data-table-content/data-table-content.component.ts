@@ -34,9 +34,22 @@ export class DataTableContentComponent implements OnInit {
   }
 
   public edit = (id:any) => {
-    if (!this.property) return;
+    const prop = this.property;
+    if (!prop) return;
+    this.alert.showConfirm("Edit data?")
+    .then(ok=> {
+      if (ok) {
+        this.router.navigate(['/management/form/'+prop.entityName], { state: { id: id} });
+      }
+    })
     
-    this.router.navigate(['/management/form/'+this.property.entityName], { state: { id: id} });
+  }
+
+  public dateString = (date:any) => {
+    if (!date) {
+      date = new Date();
+    }
+    return new Date(date).toDateString();
   }
 
   public deleteRecord = (id:any) => {

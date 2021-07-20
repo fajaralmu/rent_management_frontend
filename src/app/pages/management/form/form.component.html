@@ -27,17 +27,29 @@
                         <input type="number" *ngIf="element.fieldType == 'FIELD_TYPE_NUMBER' " [(ngModel)]="model[element.id]"   
                             class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} />
                         
+                        <input type="date" *ngIf="element.fieldType == 'FIELD_TYPE_DATE' " [(ngModel)]="model[element.id]"   
+                            class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} />
+                        
                         <textarea  *ngIf="element.fieldType == 'FIELD_TYPE_TEXTAREA' " [(ngModel)]="model[element.id]"  
                             class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} >
                         </textarea>
+
                         <div class=" form-check" *ngIf="element.fieldType == 'FIELD_TYPE_CHECKBOX' ">
                             <input class="form-check-input" name={{element.id}} type="checkbox" [(ngModel)]="model[element.id]" />
                             <label class="form-check-label"  >{{model[element.id] === true?'Yes' : 'No'}}</label>
                         </div>
+                        
                         <select *ngIf="isFixedList(element) && hasValue(element)" name={{element.id}} class="form-control" > 
                             <option *ngFor="let option of element.options" (click)="updateField(element, option)"
-                                [selected]="isListSelected(element, option) ? true : false" >
+                                [selected]="isJSONListSelected(element, option) ? true : false" >
                                 {{option[element.optionItemName]}}
+                            </option>  
+                        </select>
+                        
+                        <select *ngIf="element.fieldType == 'FIELD_TYPE_PLAIN_LIST'" name={{element.id}} class="form-control" > 
+                            <option *ngFor="let option of element.plainListValues" (click)="updateField(element, option)"
+                                [selected]="model[element.id] == option ? true : false" >
+                                {{option}}
                             </option>  
                         </select>
                     </ng-container> 

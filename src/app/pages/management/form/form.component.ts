@@ -6,6 +6,7 @@ import { EntityProperty } from './../../../models/entity-property';
 import { AlertService } from './../../../service/alert.service';
 import { WebResponse } from './../../../models/web-response';
 import { EntityElement } from './../../../models/entity-element';
+import { getInputReadableDate } from './../../../utils/date-util';
 
 @Component({
   selector: 'div[app-form]',
@@ -63,23 +64,32 @@ export class FormComponent implements OnInit {
   private populateModel = (property:EntityProperty, existingModel?:any) => {
     if (existingModel ) {
       this.model = existingModel;
-      return;
+      // return;
+    } else {
+      this.model = {};
     }
-    this.model = {};
     for (let i = 0; i < property.elements.length; i++) {
       const element:EntityElement = property.elements[i];
-      if (element.identity) {
+      if (element.identity === true) {
         if (this.modelId !== undefined) {
           this.model[element.id] = this.modelId;
         }
         continue;
       }
       
-      if (this.isFixedList(element) &&element.options) {
+      if (this.isFixedList(element) &&element.options && !existingModel) {
         this.model[element.id] = element.options[0];
-      } else if(element.fieldType === 'FIELD_TYPE_CHECKBOX'){
+
+      } else if(element.fieldType === 'FIELD_TYPE_CHECKBOX' && !existingModel){
         this.model[element.id] = false;
-      }else {
+      
+      } else if(element.fieldType === 'FIELD_TYPE_DATE'){
+        this.model[element.id] = getInputReadableDate(new Date(this.model[element.id]));
+
+      } else if(element.fieldType === 'FIELD_TYPE_PLAIN_LIST'){
+        console.debug("PLAIN LIST this.model[element.id]: ", this.model[element.id]);
+
+      } else if (!existingModel) {
         this.model[element.id] = null;
       }
     }
@@ -107,9 +117,9 @@ export class FormComponent implements OnInit {
   }
 
   /**
-   * isListSelected
+   * isJSONListSelected
    */
-  public isListSelected = (el:EntityElement, option:any) => {
+  public isJSONListSelected = (el:EntityElement, option:any) => {
     return this.model[el.id] && option[el.optionValueName] == this.model[el.id][el.optionValueName];
   }
 
@@ -145,22 +155,5 @@ export class FormComponent implements OnInit {
   public updateField = (el:EntityElement, option:any) => {
     this.model[el.id] = option;
   }
-
-  // public updateFieldFromList = (event:Event, el:EntityElement) => {
-  //   if (!el.options) return;
-  //   const select:HTMLSelectElement = event.target as HTMLSelectElement;
-  //   console.debug("CHANGE: ", select.value);
-  //   const selected:string = select.value.toString();
-  //   for (let i = 0; i < el.options.length; i++) {
-  //     const option = el.options[i];
-  //     if (option[el.optionValueName].toString() == selected)  {
-  //       this.model[el.id] = option;
-  //       break;
-  //     }
-  //   }
-
-  //   console.debug("this.model[el.id]: ", this.model[el.id]);
-  // }
- 
 
 }

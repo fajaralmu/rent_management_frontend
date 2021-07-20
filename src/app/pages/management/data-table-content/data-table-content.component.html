@@ -9,6 +9,12 @@
                 <span *ngIf="element.fieldType == 'FIELD_TYPE_TEXTAREA'">
                     {{ item[element.id].toString().substring(0, 20) }}
                 </span>
+                <span *ngIf="element.fieldType == 'FIELD_TYPE_DATE'">
+                    {{ dateString(item[element.id])}}
+                </span>
+                <span *ngIf="element.fieldType == 'FIELD_TYPE_PLAIN_LIST'">
+                    {{ (item[element.id])}}
+                </span>
                 <span *ngIf="element.fieldType == 'FIELD_TYPE_FIXED_LIST' || element.fieldType == 'FIELD_TYPE_DYNAMIC_LIST'">
                     {{ item[element.id][element.optionItemName] }}
                 </span>
