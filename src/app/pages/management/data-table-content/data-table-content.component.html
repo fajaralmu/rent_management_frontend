@@ -3,7 +3,7 @@
         <td>{{ recordNumber(i) }}</td>
         <td *ngFor="let element of property.elements" >
             <div style="min-width: 100px;" *ngIf="item[element.id] || false === item[element.id]">
-                <span *ngIf="element.fieldType == 'FIELD_TYPE_TEXT' || element.fieldType == 'FIELD_TYPE_NUMBER'">
+                <span *ngIf="displayedAsText(element)">
                     {{ item[element.id] }}
                 </span>
                 <span *ngIf="element.fieldType == 'FIELD_TYPE_TEXTAREA'">
@@ -12,10 +12,13 @@
                 <span *ngIf="element.fieldType == 'FIELD_TYPE_DATE'">
                     {{ dateString(item[element.id])}}
                 </span>
+                <span *ngIf="element.fieldType == 'FIELD_TYPE_DATETIME'">
+                    {{ dateTimeString(item[element.id])}}
+                </span>
                 <span *ngIf="element.fieldType == 'FIELD_TYPE_PLAIN_LIST'">
                     {{ (item[element.id])}}
                 </span>
-                <span *ngIf="element.fieldType == 'FIELD_TYPE_FIXED_LIST' || element.fieldType == 'FIELD_TYPE_DYNAMIC_LIST'">
+                <span *ngIf="element.optionItemName !== undefined">
                     {{ item[element.id][element.optionItemName] }}
                 </span>
                 <span *ngIf="element.fieldType == 'FIELD_TYPE_CHECKBOX'">
@@ -26,10 +29,10 @@
         </td>
         <td>
             <div style="width: 100px">
-                <a (click)="edit(item[property.idField])" class="btn btn-warning btn-sm" style="margin-right: 5px;">
+                <a *ngIf="property.editable === true" (click)="edit(item[property.idField])" class="btn btn-warning btn-sm" style="margin-right: 5px;">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a (click)="deleteRecord(item[property.idField])" class="btn btn-danger btn-sm">
+                <a *ngIf="property.editable === true"  (click)="deleteRecord(item[property.idField])" class="btn btn-danger btn-sm">
                     <i class="fas fa-trash"></i>
                 </a>
             </div>

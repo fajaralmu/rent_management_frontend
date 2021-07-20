@@ -37,14 +37,19 @@ export class FormComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     this. entityName = routeParams.get('entityName');
     if (this.entityName === null) return;
-    this.masterDataService.loadConfig(this.entityName)
-    .then((result:EntityProperty)=>{
-      if (this.isNewRecord() === false) {
-        this.loadRecord();
-      } else {
-        this.populateModel(result);
-      }
-    });
+    this.masterDataService.loadConfig(this.entityName).then(this.handleGetProperty);
+  }
+
+  private handleGetProperty = (prop:EntityProperty) => {
+    if (prop.creatable !== true && !this.modelId) {
+      this.router.navigateByUrl("/management/"+prop.entityName);
+      return;
+    }
+    if (this.isNewRecord() === false) {
+      this.loadRecord();
+    } else {
+      this.populateModel(prop);
+    }
   }
 
   private loadRecord = () => {
@@ -86,8 +91,8 @@ export class FormComponent implements OnInit {
       } else if(element.fieldType === 'FIELD_TYPE_DATE'){
         this.model[element.id] = getInputReadableDate(new Date(this.model[element.id]));
 
-      } else if(element.fieldType === 'FIELD_TYPE_PLAIN_LIST'){
-        console.debug("PLAIN LIST this.model[element.id]: ", this.model[element.id]);
+      } else if(element.fieldType === 'FIELD_TYPE_PLAIN_LIST' && !existingModel){
+        this.model[element.id] = element.plainListValues?element.plainListValues[0]:undefined;
 
       } else if (!existingModel) {
         this.model[element.id] = null;

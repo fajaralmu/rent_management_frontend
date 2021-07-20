@@ -7,4 +7,7 @@ export interface EntityProperty {
     idField     :string;
     elements    :EntityElement[];
     fieldNameList:string[];
+
+    editable:boolean;
+    creatable:boolean;
 }

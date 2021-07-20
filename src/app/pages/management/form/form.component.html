@@ -17,38 +17,37 @@
         </div>
     </div>
     <div class="border border-dark rounded">
-        <form (submit)="submit($event)" style="padding: 10px; width: 80vw;">
+        <form ngNativeValidate (submit)="submit($event)" style="padding: 10px; width: 80vw;">
             <ng-container *ngFor="let element of property.elements">
-                <app-form-group label={{element.labelName}}>
+                <app-form-group *ngIf="element.editable" label={{element.labelName}}>
                     <ng-container *ngIf="element.identity !== true">
-                        <input *ngIf="element.fieldType == 'FIELD_TYPE_TEXT' "  [(ngModel)]="model[element.id]"
+                        <input *ngIf="element.fieldType == 'FIELD_TYPE_TEXT' " [required]="element.required"  [(ngModel)]="model[element.id]"
                             class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} />
                         
-                        <input type="number" *ngIf="element.fieldType == 'FIELD_TYPE_NUMBER' " [(ngModel)]="model[element.id]"   
+                        <input type="number" *ngIf="element.fieldType == 'FIELD_TYPE_NUMBER' " [required]="element.required"  [(ngModel)]="model[element.id]"   
                             class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} />
                         
-                        <input type="date" *ngIf="element.fieldType == 'FIELD_TYPE_DATE' " [(ngModel)]="model[element.id]"   
+                        <input type="date" *ngIf="element.fieldType == 'FIELD_TYPE_DATE' " [required]="element.required"  [(ngModel)]="model[element.id]"   
                             class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} />
                         
-                        <textarea  *ngIf="element.fieldType == 'FIELD_TYPE_TEXTAREA' " [(ngModel)]="model[element.id]"  
+                        <textarea  *ngIf="element.fieldType == 'FIELD_TYPE_TEXTAREA' " [required]="element.required"  [(ngModel)]="model[element.id]"  
                             class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} >
                         </textarea>
 
                         <div class=" form-check" *ngIf="element.fieldType == 'FIELD_TYPE_CHECKBOX' ">
-                            <input class="form-check-input" name={{element.id}} type="checkbox" [(ngModel)]="model[element.id]" />
+                            <input class="form-check-input" name={{element.id}} type="checkbox" [required]="element.required"  [(ngModel)]="model[element.id]" />
                             <label class="form-check-label"  >{{model[element.id] === true?'Yes' : 'No'}}</label>
                         </div>
                         
-                        <select *ngIf="isFixedList(element) && hasValue(element)" name={{element.id}} class="form-control" > 
+                        <select *ngIf="isFixedList(element) && hasValue(element)" [required]="element.required"  name={{element.id}} class="form-control" > 
                             <option *ngFor="let option of element.options" (click)="updateField(element, option)"
                                 [selected]="isJSONListSelected(element, option) ? true : false" >
                                 {{option[element.optionItemName]}}
                             </option>  
                         </select>
                         
-                        <select *ngIf="element.fieldType == 'FIELD_TYPE_PLAIN_LIST'" name={{element.id}} class="form-control" > 
-                            <option *ngFor="let option of element.plainListValues" (click)="updateField(element, option)"
-                                [selected]="model[element.id] == option ? true : false" >
+                        <select *ngIf="element.fieldType == 'FIELD_TYPE_PLAIN_LIST'"  [(ngModel)]="model[element.id]" [required]="element.required"  name={{element.id}} class="form-control" > 
+                            <option *ngFor="let option of element.plainListValues" [value]="option" >
                                 {{option}}
                             </option>  
                         </select>
@@ -60,7 +59,12 @@
                         <input type="text" value={{modelId}} class="form-control" readonly/>
                     </ng-container>
                 </app-form-group>
+                <app-form-group *ngIf="!element.editable" label={{element.labelName}}>
+                    <span *ngIf="model[element.id] && element.optionItemName">{{ model[element.id][element.optionItemName]}}</span>
+                    <span *ngIf="!element.optionItemName">{{ model[element.id] }}</span>
+                </app-form-group>
             </ng-container>
+           
             
             <app-form-group label="">
                 <input type="submit" class="btn btn-success" value="Save" />

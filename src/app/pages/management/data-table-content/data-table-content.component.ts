@@ -4,6 +4,8 @@ import { Filter } from './../../../models/dto/filter';
 import { Router } from '@angular/router';
 import { MasterDataService } from './../../../service/master-data.service';
 import { AlertService } from './../../../service/alert.service';
+import { EntityElement } from 'src/app/models/entity-element';
+import { getInputReadableDate } from './../../../utils/date-util';
 
 @Component({
   selector: 'tbody[app-data-table-content]',
@@ -45,11 +47,22 @@ export class DataTableContentComponent implements OnInit {
     
   }
 
+  public displayedAsText = (el:EntityElement): boolean => {
+    if (el.optionItemName) return false;
+    return el.fieldType == 'FIELD_TYPE_TEXT' || el.fieldType == 'FIELD_TYPE_NUMBER'
+  }
+
   public dateString = (date:any) => {
     if (!date) {
       date = new Date();
     }
-    return new Date(date).toDateString();
+    return getInputReadableDate(new Date(date));
+  }
+  public dateTimeString = (date:any) => {
+    if (!date) {
+      date = new Date();
+    }
+    return new Date(date).toDateString() + " " + new Date(date).toLocaleTimeString();
   }
 
   public deleteRecord = (id:any) => {

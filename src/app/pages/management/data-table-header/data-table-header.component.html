@@ -1,14 +1,14 @@
 <ng-container *ngIf="property && filter">
     <tr>
         <th style="width: 30px;">No</th>
-        <th class="header-data-table" *ngFor="let element of elements" (click)="sortBy(element.id)" >
+        <th class="header-data-table" *ngFor="let element of elements" (click)="sortBy(element)" >
             <div style="min-width: 100px;">
                 <div class="row" >
                     <span class="col-sm-9">{{element.labelName}} </span>
-                    <span *ngIf="element.id == filter.orderBy" class="col-sm-1">
+                    <span *ngIf="element.orderable && element.id == filter.orderBy" class="col-sm-1">
                         <i [ngClass]="filter.orderType == 'asc'? 'fas fa-long-arrow-alt-up' : 'fas fa-long-arrow-alt-down'"></i>
                     </span>
-                    <span  class="col-sm-1" *ngIf="filter.orderBy != element.id " >
+                    <span  class="col-sm-1" *ngIf="element.orderable && filter.orderBy != element.id " >
                         <i class="fas fa-sort"></i>
                     </span>
                 </div>
