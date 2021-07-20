@@ -30,7 +30,17 @@
                         <textarea  *ngIf="element.fieldType == 'FIELD_TYPE_TEXTAREA' " [(ngModel)]="model[element.id]"  
                             class="form-control" autocomplete="off" placeholder={{element.labelName}} name={{element.id}} >
                         </textarea>
-                    </ng-container>
+                        <div class=" form-check" *ngIf="element.fieldType == 'FIELD_TYPE_CHECKBOX' ">
+                            <input class="form-check-input" name={{element.id}} type="checkbox" [(ngModel)]="model[element.id]" />
+                            <label class="form-check-label"  >{{model[element.id] === true?'Yes' : 'No'}}</label>
+                        </div>
+                        <select *ngIf="isFixedList(element) && hasValue(element)" name={{element.id}} class="form-control" > 
+                            <option *ngFor="let option of element.options" (click)="updateField(element, option)"
+                                [selected]="isListSelected(element, option) ? true : false" >
+                                {{option[element.optionItemName]}}
+                            </option>  
+                        </select>
+                    </ng-container> 
                     <ng-container *ngIf="element.identity === true && modelId === undefined">
                         <input type="text" value="Generated ID" class="form-control" readonly/>
                     </ng-container>

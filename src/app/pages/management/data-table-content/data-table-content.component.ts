@@ -58,9 +58,10 @@ export class DataTableContentComponent implements OnInit {
 
   private updateRemovedItem = (id:any) => {
     if (!this.property) return;
+    const idField:string = this.property.idField;
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
-      if (item[this.property.idField] === id) {
+      if (item[idField] === id) {
         this.items.splice(i, 1);
         break;
       }

@@ -4,7 +4,10 @@ export interface EntityElement {
     editable: boolean;
     id: string; 
     labelName: string;
+
+    optionValueName:string;
     optionItemName: string;
+    
     entityReferenceClass: string;
     identity: boolean;
     required: boolean;
@@ -13,4 +16,5 @@ export interface EntityElement {
     orderable: boolean;
     fieldType: string;
     fieldTypeConstants: FieldType;
+    options:any[]|undefined;
 }
