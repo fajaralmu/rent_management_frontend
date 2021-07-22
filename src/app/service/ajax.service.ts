@@ -23,17 +23,22 @@ export class AjaxService {
         ... commonHeaders(true)
       }).subscribe((response:HttpResponse<Type>)=>{
         this.userService.updateToken(response);
+
         if (response.body) {
           res(response.body);
+
           if (onSuccessCallback) {
             onSuccessCallback(response.body);
           }
+
         } else {
           throw new Error("Response body cannot be read");
+
         }
         
       }, (error:HttpErrorResponse) => {
         rej(error.error)
+
       });
     }) 
     

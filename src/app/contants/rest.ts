@@ -3,7 +3,8 @@ import { HttpHeaders } from "@angular/common/http";
 const REQ_ID_KEY:string = "RENT_REQ_ID_KEY";
 const LOGIN_KEY:string = "RENT_LOGIN_KEY";
 export const getHost  = () => {
-    return "http://127.0.0.1:8080/medicalinventory/";
+    return "http://127.0.0.1:8080/rentmanagement/";
+    // return "http://127.0.0.1:8080/medicalinventory/";
 }
 
 

@@ -82,7 +82,7 @@ export class FormComponent implements OnInit {
         continue;
       }
       
-      if (this.isFixedList(element) &&element.options && !existingModel) {
+      if (this.isFixedList(element) &&element.options && (!this.model[element.id] || !existingModel)) {
         this.model[element.id] = element.options[0];
 
       } else if(element.fieldType === 'FIELD_TYPE_CHECKBOX' && !existingModel){
@@ -116,7 +116,8 @@ export class FormComponent implements OnInit {
     // return;
     this.masterDataService.submit(this.model, this.entityName, this.isNewRecord())
     .then(response=> this.alert.showInfo("Success").then(()=>{
-      this.model = {};
+      if (this.property)
+        this.populateModel(this.property);
     }))
     .catch(err => this.alert.showInfo("Error"));
   }

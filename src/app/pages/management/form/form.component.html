@@ -41,7 +41,8 @@
                         
                         <select *ngIf="isFixedList(element) && hasValue(element)" [required]="element.required"  name={{element.id}} class="form-control" > 
                             <option *ngFor="let option of element.options" (click)="updateField(element, option)"
-                                [selected]="isJSONListSelected(element, option) ? true : false" >
+                                [selected]="isJSONListSelected(element, option) ? true : false" 
+                                value={{option[element.optionValueName]}}>
                                 {{option[element.optionItemName]}}
                             </option>  
                         </select>
