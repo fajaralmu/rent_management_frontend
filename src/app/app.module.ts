@@ -17,6 +17,7 @@ import { DataTableHeaderComponent } from './pages/management/data-table-header/d
 import { PaginationButtonComponent } from './navigation/pagination-button/pagination-button.component';
 import { DataTableContentComponent } from './pages/management/data-table-content/data-table-content.component';
 import { FormComponent } from './pages/management/form/form.component';
+import { InputImageComponent } from './pages/management/form/input/input-image/input-image.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FormComponent } from './pages/management/form/form.component';
     DataTableHeaderComponent,
     PaginationButtonComponent,
     DataTableContentComponent,
-    FormComponent
+    FormComponent,
+    InputImageComponent
   ],
   imports: [
     BrowserModule,

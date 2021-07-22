@@ -7,6 +7,7 @@ import { AlertService } from './../../../service/alert.service';
 import { WebResponse } from './../../../models/web-response';
 import { EntityElement } from './../../../models/entity-element';
 import { getInputReadableDate } from './../../../utils/date-util';
+import { Picture } from './../../../models/picture';
 
 @Component({
   selector: 'div[app-form]',
@@ -57,12 +58,12 @@ export class FormComponent implements OnInit {
     if (!prop || !this.modelId) return;
     this.masterDataService.loadSingleRecord(prop, this.modelId)
     .then((response:WebResponse)=>{
-      if (response.entities.length == 0) {
+      if (!response.entity) {
         this.alert.showInfo("Data not found")
           .then(()=>this.populateModel(prop));
         return;
       }
-      this.populateModel(prop, response.entities[0]);
+      this.populateModel(prop, response.entity);
     })
   }
 
@@ -85,6 +86,9 @@ export class FormComponent implements OnInit {
       if (this.isFixedList(element) &&element.options && (!this.model[element.id] || !existingModel)) {
         this.model[element.id] = element.options[0];
 
+      } else  if (element.fieldType === 'FIELD_TYPE_IMAGE' && (!this.model[element.id] || !existingModel)) {
+        this.model[element.id] = [];
+
       } else if(element.fieldType === 'FIELD_TYPE_CHECKBOX' && !existingModel){
         this.model[element.id] = false;
       
@@ -98,6 +102,10 @@ export class FormComponent implements OnInit {
         this.model[element.id] = null;
       }
     }
+  }
+
+  updatePicture = (el:EntityElement, pictures:Picture[]) => {
+    this.model[el.id] = pictures;
   }
 
   submit = (ev:Event) => {

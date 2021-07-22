@@ -1,0 +1,15 @@
+<div>
+    <input type="file" accept="image/*" (change)="addPicture($event)" class="form-control" />
+    <div class="row">
+        <div *ngFor="let picture of items, index as i" class="col-md-2">
+            <img width="100" height="100" src={{imageSrc(picture)}}  />
+            <div class="btn-group">
+                <a class="btn btn-sm btn-light" >{{trimName(picture.name)}}</a>
+                <a class="btn btn-sm btn-danger" (click)="remove(i)" ><i class="fas fa-times" ></i></a>
+            </div>
+            
+        </div >
+    </div>
+   
+</div>
+

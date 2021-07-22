@@ -6,6 +6,8 @@ import { MasterDataService } from './../../../service/master-data.service';
 import { AlertService } from './../../../service/alert.service';
 import { EntityElement } from 'src/app/models/entity-element';
 import { getInputReadableDate } from './../../../utils/date-util';
+import { Picture } from './../../../models/picture';
+import { UserService } from './../../../service/user.service';
 
 @Component({
   selector: 'tbody[app-data-table-content]',
@@ -21,7 +23,8 @@ export class DataTableContentComponent implements OnInit {
   @Input()
   filter:Filter | undefined;
 
-  constructor(private alert:AlertService, private router:Router, private masterDataService:MasterDataService) { }
+  constructor(private userService:UserService,
+    private alert:AlertService, private router:Router, private masterDataService:MasterDataService) { }
 
   ngOnInit(): void {
   }
@@ -93,6 +96,11 @@ export class DataTableContentComponent implements OnInit {
       }
       
     }
+  }
+
+  public imagePath = (pictures:Picture[]) => {
+    
+    return this.userService.assetPath+"images/"+pictures[0].name;
   }
 
 }

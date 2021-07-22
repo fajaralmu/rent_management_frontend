@@ -13,6 +13,7 @@ export interface WebResponse {
     generalList:any[]|undefined;
     entityProperty:EntityProperty;
     entities:any[];
+    entity:any|undefined;
     totalData:number;
     filter:Filter;
 }

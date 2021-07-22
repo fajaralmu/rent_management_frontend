@@ -18,6 +18,10 @@
                 <span *ngIf="element.fieldType == 'FIELD_TYPE_PLAIN_LIST'">
                     {{ (item[element.id])}}
                 </span>
+                <span *ngIf="element.fieldType == 'FIELD_TYPE_IMAGE' &&  item[element.id] && item[element.id].length > 0">
+                    <img  width="50" height="50" src={{imagePath(item[element.id])}}/>
+                    <span > ({{item[element.id].length }}) </span>
+                </span>
                 <span *ngIf="element.optionItemName !== undefined">
                     {{ item[element.id][element.optionItemName] }}
                 </span>

@@ -134,4 +134,8 @@ export class UserService {
       }
       this.applicationProfile = response.applicationProfile;
   }
+
+  get assetPath() {
+    return this.applicationProfile?.assetsPath;
+  }
 }

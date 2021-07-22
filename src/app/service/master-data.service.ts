@@ -86,12 +86,9 @@ export class MasterDataService {
   /**
    * loadSingleRecord
    */
-  public loadSingleRecord = (entityProperty: EntityProperty, id:any):Promise<WebResponse> => {
-    const filter:Filter = new Filter();
-    filter.fieldsFilter[entityProperty.idField]= id;
-    filter.limit = 1;
-    const url = getHost()+"api/app/entity/get";
-    return this.ajax.commonAuthorizedAjax<WebResponse> (url, { filter:filter,entity:entityProperty.entityName});
+  public loadSingleRecord = (entityProperty: EntityProperty, id:any):Promise<WebResponse> => { 
+    const url = getHost()+"api/app/entity/getone/"+entityProperty.entityName+"/"+id;
+    return this.ajax.commonAuthorizedAjax<WebResponse> (url,  {});
   }
 
   /**

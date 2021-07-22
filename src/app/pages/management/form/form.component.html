@@ -52,6 +52,12 @@
                                 {{option}}
                             </option>  
                         </select>
+
+                        <app-input-image *ngIf="model[element.id] != undefined && element.fieldType == 'FIELD_TYPE_IMAGE' "
+                           (update)="updatePicture(element, $event)" [items]="model[element.id]" >
+
+                        </app-input-image>
+
                     </ng-container> 
                     <ng-container *ngIf="element.identity === true && modelId === undefined">
                         <input type="text" value="Generated ID" class="form-control" readonly/>
