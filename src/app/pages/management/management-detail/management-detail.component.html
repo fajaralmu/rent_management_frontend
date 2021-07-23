@@ -1,7 +1,7 @@
 <div *ngIf="!property" class="alert alert-warning">
     <h3>Loading Property</h3>
 </div>
-<div *ngIf="property">
+ <form ngNativeValidate  (submit)="loadItems(0)"  *ngIf="property">
     <h2>{{property.alias}}</h2>
     <div class="row">
         <div class="col-md-3">
@@ -15,9 +15,9 @@
                     <a routerLink="{{'/management/form/'+property.entityName}}" class="page-link border border-secondary bg-secondary text-white">Add Record</a>
                 </li>
                 <li class="page-item">
-                    <a  class="page-link " (click)="loadItems(0)">
+                    <button type="submit" class="page-link " >
                         <i class="fa fa-redo"></i>
-                    </a>
+                    </button>
                 </li>
             </ul>
         </div>
@@ -30,14 +30,15 @@
         ></div>
     </div>
     <div class="border border-secondary" style="width: 80vw;  overflow: scroll;">
-    <table class="table table-striped" >
-        <thead app-data-table-header  (updateOrder)="updateOrder($event)"
-            [property]="property" [filter]="filter"></thead>
-        <tbody app-data-table-content *ngIf="items" [items]="items" [filter]="filter" [property]="property">
+        <table class="table table-striped" >
+            <thead app-data-table-header  (updateFilter)="updateFilter($event)"
+                [property]="property" [filter]="filter"></thead>
+            <tbody app-data-table-content *ngIf="items" [items]="items" [filter]="filter" [property]="property">
 
-        </tbody>
+            </tbody>
         </table>
     </div>
-</div>
+
+</form>
  
 

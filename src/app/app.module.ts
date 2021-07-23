@@ -22,6 +22,7 @@ import { SupplyFormComponent } from './pages/transaction/supply-form/supply-form
 import { LoadingComponent } from './message/loading/loading.component';
 import { SupplierFormComponent } from './pages/transaction/supplier-form/supplier-form.component';
 import { ProductFormComponent } from './pages/transaction/product-form/product-form.component';
+import { CatalogComponent } from './pages/catalog/catalog.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ProductFormComponent } from './pages/transaction/product-form/product-f
     SupplyFormComponent,
     LoadingComponent,
     SupplierFormComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    CatalogComponent
   ],
   imports: [
     BrowserModule,

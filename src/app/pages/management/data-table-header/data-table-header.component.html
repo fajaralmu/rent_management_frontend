@@ -1,16 +1,19 @@
 <ng-container *ngIf="property && filter">
     <tr>
         <th style="width: 30px;">No</th>
-        <th class="header-data-table" *ngFor="let element of elements" (click)="sortBy(element)" >
+        <th class="header-data-table" *ngFor="let element of elements" >
             <div style="min-width: 100px;">
                 <div class="row" >
                     <span class="col-sm-9">{{element.labelName}} </span>
-                    <span *ngIf="element.orderable && element.id == filter.orderBy" class="col-sm-1">
+                    <span (click)="sortBy(element)"  *ngIf="element.orderable && element.id == filter.orderBy" class="col-sm-1">
                         <i [ngClass]="filter.orderType == 'asc'? 'fas fa-long-arrow-alt-up' : 'fas fa-long-arrow-alt-down'"></i>
                     </span>
-                    <span  class="col-sm-1" *ngIf="element.orderable && filter.orderBy != element.id " >
+                    <span (click)="sortBy(element)"  class="col-sm-1" *ngIf="element.orderable && filter.orderBy != element.id " >
                         <i class="fas fa-sort"></i>
                     </span>
+                    <div *ngIf="element.filterable" class="col-sm-12">
+                        <input name={{element.id}} [(ngModel)]="filter.fieldsFilter[element.id]" class="form-control-sm" placeholder={{element.id}} />
+                    </div>
                 </div>
             </div>
         </th>

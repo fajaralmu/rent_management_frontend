@@ -15,7 +15,7 @@ export class DataTableHeaderComponent implements OnInit {
   @Input()
   filter:Filter|undefined;
   @Output()
-  updateOrder:EventEmitter<Filter> = new EventEmitter();
+  updateFilter:EventEmitter<Filter> = new EventEmitter();
 
   get elements() {
     return this.property?.elements ?? [];
@@ -33,12 +33,12 @@ export class DataTableHeaderComponent implements OnInit {
     if ( filter.orderBy != el.id) {
       filter.orderBy = el.id;
       filter.orderType = "asc";
-      this.updateOrder.emit(filter);
+      this.updateFilter.emit(filter);
       return;
     }
     
     filter.orderType = filter.orderType == "asc"?"desc":"asc";
-    this.updateOrder.emit(filter);
+    this.updateFilter.emit(filter);
   }
 
 }

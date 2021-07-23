@@ -32,9 +32,10 @@ export class ManagementDetailComponent implements OnInit {
     this.userService.validateLoggedUser(this.loadConfig); 
   }
 
-  updateOrder = (filter:Filter) => {
+  updateFilter = (filter:Filter) => {
     this.filter.orderBy = filter. orderBy;
     this.filter.orderType = filter. orderType;
+    this.filter.fieldsFilter = filter.fieldsFilter;
     this.loadItems();
   }
 
