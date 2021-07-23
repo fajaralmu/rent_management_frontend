@@ -6,6 +6,7 @@ import { Product } from './../../../models/product';
 import { TransactionItem } from './../../../models/transaction-item';
 import { AlertService } from './../../../service/alert.service';
 import { TransactionService } from './../../../service/transaction.service';
+import { WebResponse } from './../../../models/web-response';
 
 @Component({
   selector: 'app-supply-form',
@@ -47,5 +48,18 @@ export class SupplyFormComponent implements OnInit {
   submit = (event:Event) =>  {
     event.preventDefault();
     console.debug("transaction: ", this.transaction);
+    this.alert.showConfirm("Submit?")
+    .then((ok)=> {
+      if (ok) {
+        this.service.submitAddStock(this.transaction)
+          .then(this.transactionSuccess)
+      }
+    })
+  }
+
+  transactionSuccess = (response:WebResponse) => {
+    this.alert.showInfo("Success").then(()=>{
+      this.transaction = new Transaction()
+    });
   }
 }
