@@ -12,7 +12,19 @@
                         <i class="fas fa-sort"></i>
                     </span>
                     <div *ngIf="element.filterable" class="col-sm-12">
-                        <input name={{element.id}} [(ngModel)]="filter.fieldsFilter[element.id]" class="form-control-sm" placeholder={{element.id}} />
+                        <input *ngIf="element.fieldType != 'FIELD_TYPE_DATE' &&  element.fieldType != 'FIELD_TYPE_DATETIME' " name={{element.id}} [(ngModel)]="filter.fieldsFilter[element.id]" class="form-control-sm" placeholder={{element.id}} />
+                        <div style="min-width: 150px;" class="input-group" *ngIf="element.fieldType == 'FIELD_TYPE_DATE' || element.fieldType == 'FIELD_TYPE_DATETIME'">
+                            <input type="number" min={{1}} max={{31}} class="form-control" name="{{element.id+'-day'}}" 
+                              placeholder="D"  [(ngModel)]="filter.fieldsFilter[element.id+'-day']"
+                            />
+                            <input type="number" min={{1}} max={{12}} class="form-control" name="{{element.id+'-month'}}" 
+                               placeholder="M" [(ngModel)]="filter.fieldsFilter[element.id+'-month']"
+                            />
+                            <input type="number" min={{1}} class="form-control" name="{{element.id+'-year'}}" 
+                              placeholder="Y"  [(ngModel)]="filter.fieldsFilter[element.id+'-year']"
+                            />
+                        </div>
+                       
                     </div>
                 </div>
             </div>
