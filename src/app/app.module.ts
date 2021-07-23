@@ -18,6 +18,10 @@ import { PaginationButtonComponent } from './navigation/pagination-button/pagina
 import { DataTableContentComponent } from './pages/management/data-table-content/data-table-content.component';
 import { FormComponent } from './pages/management/form/form.component';
 import { InputImageComponent } from './pages/management/form/input/input-image/input-image.component';
+import { SupplyFormComponent } from './pages/transaction/supply-form/supply-form.component';
+import { LoadingComponent } from './message/loading/loading.component';
+import { SupplierFormComponent } from './pages/transaction/supplier-form/supplier-form.component';
+import { ProductFormComponent } from './pages/transaction/product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { InputImageComponent } from './pages/management/form/input/input-image/i
     PaginationButtonComponent,
     DataTableContentComponent,
     FormComponent,
-    InputImageComponent
+    InputImageComponent,
+    SupplyFormComponent,
+    LoadingComponent,
+    SupplierFormComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,

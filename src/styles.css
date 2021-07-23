@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+.opt-wrapper {
+    position: absolute;
+    padding: 5px;
+    z-index: 50;
+    width: 100%;
+}
+
+.opt-item {
+    padding: 3px;
+}
+.opt-item:hover {
+    cursor: pointer;
+    background-color: #ccc;
+}

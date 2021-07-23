@@ -19,8 +19,12 @@ export class DashboardComponent implements OnInit {
       link:'/management'
     },
     {
+      label:'Add Stock',
+      link:'/supply'
+    },
+    {
       label:'Update Stock',
-      link:'/addstock'
+      link:'/updatestock'
     },
   ]
 

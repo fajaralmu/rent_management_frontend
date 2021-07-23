@@ -1,0 +1,20 @@
+<form (submit)="search($event)" ngNativeValidate>
+    <div class="input-group">
+        <input class="form-control" [(ngModel)]="name" placeholder="Name" name="name" required/>
+        <div class="input-group-append">
+            <input type="submit" class="btn btn-dark" value="Search" />
+        </div>
+    </div>
+    <div *ngIf="message" (click)="hideMessage()" class="alert alert-warning" >
+        {{message}}
+        <a target="_blank"  style="margin-left: 10px;" routerLink="/management/supplier" class="btn btn-outline-dark btn-sm">
+            See Available List <i class="fas fa-list"></i>
+        </a>
+    </div>
+    <div *ngIf="items.length > 0" class="opt-wrapper bg-white border">
+        <div *ngFor="let item of items" (click)="select(item)"  class="opt-item">
+            {{item.name}}
+        </div>
+    </div>
+</form>
+

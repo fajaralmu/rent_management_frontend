@@ -6,6 +6,7 @@ import { DashboardComponent } from './../pages/dashboard/dashboard.component';
 import { ManagementComponent } from './../pages/management/management.component';
 import { ManagementDetailComponent } from './../pages/management/management-detail/management-detail.component';
 import { FormComponent } from './../pages/management/form/form.component';
+import { SupplyFormComponent } from '../pages/transaction/supply-form/supply-form.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: '/index', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'management', component: ManagementComponent },
   { path: 'management/:entityName', component: ManagementDetailComponent },
   { path: 'management/form/:entityName', component: FormComponent },
+  { path: 'supply', component: SupplyFormComponent },
 ];
 
 @NgModule({

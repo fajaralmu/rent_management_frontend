@@ -49,14 +49,16 @@ export class UserService {
     return new Promise<boolean>((res, rej)=> {
       const url = getHost()+"login?"+queryString;
 
-      this.http.post<WebResponse >(url,{},{observe: 'response', ...this.loginHeader})
+      const sub = this.http.post<WebResponse >(url,{},{observe: 'response', ...this.loginHeader})
       
       .subscribe((resp:HttpResponse<WebResponse>)=>{
         this.handleSuccessLogin(resp);
         res(true);
+        sub.unsubscribe();
       }, (err) => {
         res(false);
-      })
+        sub.unsubscribe();
+      });
     });
   
   }
@@ -106,12 +108,14 @@ export class UserService {
    */
   public logout() : Promise<boolean> {
     return new Promise<boolean> ((res, rej)=>{
-      this.http.post<WebResponse>(getHost()+"api/app/account/logout", {},
+     const sub= this.http.post<WebResponse>(getHost()+"api/app/account/logout", {},
       commonHeaders(true)).subscribe((resp)=>{
         this.handleLoggedOut();
         res(true);
+        sub.unsubscribe();
       }, (err)=>{
         res(false);
+        sub.unsubscribe();
       })
     });
   }

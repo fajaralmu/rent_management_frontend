@@ -1,0 +1,66 @@
+<div class="container-fluid">
+    <h2 class="text-center">Supply Form</h2>
+    <hr/>
+    <app-form-group label="Supplier">
+        <div app-supplier-form (selectItem)="setSupplier($event)"></div>
+    </app-form-group>
+    <app-form-group label="Add Product">
+        <div app-product-form (selectItem)="addProduct($event)"></div>
+    </app-form-group>
+    <form ngNativeValidate (submit)="submit($event)" >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Unit</th>
+                    <th>Total Price</th>
+                    <th>Option</th>
+                </tr>
+            </thead>
+            <tbody  *ngIf="transaction.items.length == 0">
+                <tr class="text-center">
+                    <td colspan="7"><h4 style="width: 60vw;">Please select product</h4></td>
+                </tr>
+            </tbody>
+            <tbody  *ngIf="transaction.items.length > 0">
+                <tr *ngFor="let item of transaction.items, index as i">
+                    <td>{{i + 1}}</td>
+                    <td>{{item.product.name}}</td>
+                    <td>
+                        <input type="number" min="1" class="form-control" [(ngModel)]="item.count" 
+                        name="{{'count'+i}}"/>
+                    </td>
+                    <td>
+                        <input type="number" min="0" class="form-control" [(ngModel)]="item.price" 
+                        name="{{'price'+i}}"/>
+                    </td>
+                    <td>{{item.product.unit.name}}</td>
+                    <td>{{item.price * item.count}}</td>
+                    <td>
+                        <a (click)="removeItem(i)" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        <a (click)="resetItems()" class="btn btn-danger btn-sm"> Reset <i class="fas fa-times"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ng-container *ngIf="inputIsValid()">
+            <app-form-group  label="Date">
+                <input required type="date" name="date" [(ngModel)]="transaction.transactionDate" class="form-control" />
+            </app-form-group>
+            <app-form-group  label="Note">
+                <textarea    name="description" [(ngModel)]="transaction.description" class="form-control" ></textarea>
+            </app-form-group>
+            <app-form-group  label="">
+                <input  type="submit" class="btn btn-primary" value="Submit"/>
+            </app-form-group>
+        </ng-container>
+
+    </form>
+</div>
