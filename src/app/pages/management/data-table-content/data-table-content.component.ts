@@ -82,6 +82,8 @@ export class DataTableContentComponent implements OnInit {
     this.masterDataService.delete(this.property, id)
     .then(res=>{
       this.alert.showInfo("Success").then(()=>this.updateRemovedItem(id));
+    }).catch((err?)=>{
+      this.alert.showInfo("Error deleting").then(null);
     })
   }
 

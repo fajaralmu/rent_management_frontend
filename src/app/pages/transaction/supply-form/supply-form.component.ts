@@ -52,13 +52,15 @@ export class SupplyFormComponent implements OnInit {
     .then((ok)=> {
       if (ok) {
         this.service.submitAddStock(this.transaction)
-          .then(this.transactionSuccess)
+          .then(this.transactionSuccess).catch((err?)=>{
+            this.alert.showInfo("Transaction failed").then(null);
+          })
       }
     })
   }
 
   transactionSuccess = (response:WebResponse) => {
-    this.alert.showInfo("Success").then(()=>{
+    this.alert.showInfo("Transaction success").then(()=>{
       this.transaction = new Transaction()
     });
   }
