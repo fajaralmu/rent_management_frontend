@@ -1,11 +1,15 @@
 
 import { Unit } from './unit';
+import { Picture } from './picture';
 export interface Product {
 
     code:string;
     name:string;
-    price:string;
-    unit:Unit
+    description:string;
+    price:number;
+    unit:Unit;
+    pictures:Picture[];
+    count:number;
      
 }
 

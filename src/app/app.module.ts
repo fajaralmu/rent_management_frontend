@@ -23,6 +23,7 @@ import { LoadingComponent } from './message/loading/loading.component';
 import { SupplierFormComponent } from './pages/transaction/supplier-form/supplier-form.component';
 import { ProductFormComponent } from './pages/transaction/product-form/product-form.component';
 import { CatalogComponent } from './pages/catalog/catalog.component';
+import { CatalogItemComponent } from './pages/catalog/catalog-item/catalog-item.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { CatalogComponent } from './pages/catalog/catalog.component';
     LoadingComponent,
     SupplierFormComponent,
     ProductFormComponent,
-    CatalogComponent
+    CatalogComponent,
+    CatalogItemComponent
   ],
   imports: [
     BrowserModule,

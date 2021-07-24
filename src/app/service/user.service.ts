@@ -30,7 +30,13 @@ export class UserService {
   constructor(private http:HttpClient, private router:Router) { }
 
   public updateToken = (resp: HttpResponse<any>) => {
-    setLoginKeyCookie(resp.headers.get("access-token"));
+    const token = resp.headers.get("access-token");
+    if (null != token) {
+      setLoginKeyCookie(token);
+      // console.debug("WILL update access-token");
+    } else {
+      // console.debug("Wont update access-token");
+    }
   }
 
  /**
