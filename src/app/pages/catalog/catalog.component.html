@@ -1,9 +1,15 @@
 <div class="container-fluid">
     <h2>Catalog</h2>
-    <div class="row">
+    
+    <div class="row  mt-5" style="width: 70vw;"> 
         <div app-catalog-item *ngFor="let item of items" class="col-md-3 " 
           [product]="item" > 
         </div>
     </div>
+    <div app-pagination-button [currentPage]="filter.page"
+      [limit]="filter.limit"
+      [totalData]="totalData"
+      (goToPage)="loadItems($event)"
+    ></div>
 </div>
 

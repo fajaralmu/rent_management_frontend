@@ -20,6 +20,9 @@ export class CatalogComponent implements OnInit {
   }
 
   loadItems = (page?:number) => {
+    if (page || page == 0) {
+      this.filter.page = page;
+    }
     this.filter.orderBy="name";
     this.productService.loadItems(this.filter)
     .then(this.itemsLoaded)
@@ -28,5 +31,6 @@ export class CatalogComponent implements OnInit {
   itemsLoaded = (response:WebResponse) => {
     this.items      = response.entities;
     this.totalData  = response.totalData;
+    this.filter     = response.filter;
   }
 }

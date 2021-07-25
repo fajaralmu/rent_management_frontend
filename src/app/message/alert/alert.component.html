@@ -13,7 +13,7 @@
 </div>
 <div className="modal-body" style="padding: 20px" > {{message}}</div>
 <div class="modal-footer " >
-    <button  type="button"  (click)="yesClick()" class ="btn btn-outline-primary" > Yes </button>
+    <button #yesButton  type="button"  (click)="yesClick()" class ="btn btn-outline-primary" > Yes </button>
      <button *ngIf="confirmAlert"  type="button"
         (click)="noClick()" class ="btn btn-outline-secondary" > No </button> 
 </div>

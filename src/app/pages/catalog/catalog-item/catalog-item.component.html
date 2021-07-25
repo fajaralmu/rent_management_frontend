@@ -1,10 +1,11 @@
-<div *ngIf="product" class="shadow mb-5 bg-white"   >
-    <div class="catalog-item"  style='background-image: url({{bgUrl}}); margin-left: 1px;'>
-        <div class="catalog-label" >
+<div *ngIf="product" class="shadow mb-5 bg-white"   > 
+    <div  class="catalog-item"  style='background-image: url({{bgUrl}}); margin-left: 1px;'>
+        <h3 *ngIf="!bgUrl" class="pt-5 text-center  text-secondary">{{productName}}</h3>
+        <div  class="catalog-label" >
             <div class="catalog-cover" 
-                (mouseover)="setMouseOver(true)"  (mouseout)="transition=false; mouseover=(false)" > 
+                (mouseover)="setMouseOver(true)"  (mouseout)="mouseOut()" > </div>
                 <span style="font-size: 1.5em;" class="text-capitalize">{{productName}} </span>
-                <div  *ngIf="mouseover" class="catalog-item-detail  ">
+                <div *ngIf="mouseover" class="catalog-item-detail  ">
                     <div class="row">
                         <p class="col-3"><strong>Price</strong></p>
                         <p class="col-9">{{product.price}}</p>
@@ -13,12 +14,12 @@
                         <p class="col-3"><strong>Desc</strong></p>
                         <p class="col-9">{{product.description}}</p>
                     </div>
-                </div>
+                
             </div>            
         </div>
        
     </div>
-    <p class="stock-info">Stock: 
-        <strong ngClass="{{product.count == 0?'text-danger':'text-success'}}" >{{product.count}}</stronggit>
+    <p class="stock-info">Stock 
+        <strong ngClass="{{product.count == 0?'text-danger':'text-success'}}" >{{product.count}}</strong>
     </p>
 </div>

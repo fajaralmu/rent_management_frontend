@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
  
 
 @Component({
@@ -6,14 +6,24 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css']
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent implements OnInit, AfterViewInit {
   @Input() message: string = 'Alert !';
   @Input() confirmAlert: boolean=false;
   @Output() yesClicked: EventEmitter<any>  = new EventEmitter ();
   @Output() noClicked: EventEmitter<any>  = new EventEmitter ();
+
+  @ViewChild('yesButton') yesButton: ElementRef<HTMLElement>|undefined;
+
   constructor() { }
+  
+  ngAfterViewInit(): void {
+    if (this.yesButton) {
+      this.yesButton.nativeElement.focus();
+    }
+  }
 
   ngOnInit(): void {
+   
   }
   yesClick(): void {
     if (this.yesClicked)
