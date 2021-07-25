@@ -13,7 +13,10 @@ export class CatalogComponent implements OnInit {
   filter:Filter = new Filter();
   items:Product[] = [];
   totalData:number = 0;
-  constructor(private productService:ProductService) { }
+  constructor(private productService:ProductService) { 
+    this.filter.orderBy = 'name';
+    this.filter.orderType = 'asc';
+  }
 
   ngOnInit(): void {
     this.loadItems(0);
@@ -22,8 +25,7 @@ export class CatalogComponent implements OnInit {
   loadItems = (page?:number) => {
     if (page || page == 0) {
       this.filter.page = page;
-    }
-    this.filter.orderBy="name";
+    } 
     this.productService.loadItems(this.filter)
     .then(this.itemsLoaded)
   }
