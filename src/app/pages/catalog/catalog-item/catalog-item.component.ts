@@ -38,18 +38,23 @@ export class CatalogItemComponent implements OnInit, AfterViewInit {
     return this.userService.assetPath+"images/"+this.product.pictures[0].name;
   }
 
-  setMouseOver = (mouseover:boolean) => {
+  /**
+   * mouseover true
+   */
+  setMouseOver = ( ) => {
     this.transition = true;
     doItLater(()=>{
       if (this.transition) {
-        this.mouseover=mouseover;
+        this.mouseover= true;
       }
       this.transition = false;
     }, 300);
   }
 
-  mouseOut = () => {
-    console.debug("Mouse Out");
+  /**
+   * mouseover false
+   */
+  setMouseOut = () => { 
     this.transition=false; 
     this.mouseover=(false)
   }

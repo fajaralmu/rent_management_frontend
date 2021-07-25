@@ -24,7 +24,9 @@
     width: 100%; 
     z-index:  1;
 }
-
+.catalog-item:hover  .catalog-label {
+    cursor: pointer; height: 100%;
+}
 .catalog-label:hover {
     cursor: pointer; height: 100%; 
 }

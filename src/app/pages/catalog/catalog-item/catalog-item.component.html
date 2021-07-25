@@ -2,8 +2,7 @@
     <div  class="catalog-item"  style='background-image: url({{bgUrl}}); margin-left: 1px;'>
         <h3 *ngIf="!bgUrl" class="pt-5 text-center  text-secondary">{{productName}}</h3>
         <div  class="catalog-label" >
-            <div class="catalog-cover" 
-                (mouseover)="setMouseOver(true)"  (mouseout)="mouseOut()" > </div>
+            <div class="catalog-cover" (mouseover)="setMouseOver()"  (mouseout)="setMouseOut()" > </div>
                 <span style="font-size: 1.5em;" class="text-capitalize">{{productName}} </span>
                 <div *ngIf="mouseover" class="catalog-item-detail  ">
                     <div class="row">
