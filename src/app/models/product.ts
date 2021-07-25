@@ -10,7 +10,7 @@ export interface Product {
     unit:Unit;
     pictures:Picture[];
     count:number;
-     
+    forRent:boolean;
 }
 
 

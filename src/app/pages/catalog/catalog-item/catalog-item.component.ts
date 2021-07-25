@@ -52,7 +52,7 @@ export class CatalogItemComponent implements OnInit, AfterViewInit {
         this.mouseover= true;
       }
       this.transition = false;
-    }, 300);
+    }, 150);
   }
 
   /**

@@ -7,10 +7,39 @@
                 Back
             </a>
         </div>
-        <div class="col-md-12">
-            <div class="mt-3 border border-dark text-center" *ngFor="let url of images">
-                <img width="200" height="200" src={{url}} />
-            </div>
+        <!-- <div class="col-md-2"></div> -->
+        <div class="col-md-8">
+            <!-- <div class="mt-3 border border-dark text-center" *ngFor="let picture of pictures">
+                <img width="200" height="200" src={{imagePath+picture.name}} />
+            </div> -->
+            <div class="mt-5" *ngIf="product.pictures.length > 0" app-image-carousel [pictures]="product.pictures" ></div>
+            <h3 class="mt-5 text-center" *ngIf="product.pictures.length == 0">No Preview</h3>
+        </div>
+        <div class="col-md-4 mt-5">
+            <table class="table border bg-light">
+                <tbody>
+                    <tr>
+                        <th colspan="2" class="text-center">{{product.name}}</th>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td>{{product.price}}</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td class="text-uppercase">{{product.forRent?"For rent":"For sale"}}</td>
+                    </tr>
+                    <tr>
+                        <td>Stock</td>
+                        <td *ngIf="product.count > 0"><strong>{{product.count}}</strong> {{product.unit.name}}</td>
+                        <td class="text-danger" *ngIf="product.count <= 0"><i>Not available</i></td>
+                    </tr>
+                    <tr>
+                        <td>Info</td>
+                        <td>{{product.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </ng-container >
