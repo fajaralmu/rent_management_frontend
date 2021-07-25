@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { Product } from './../../../models/product';
 import { UserService } from './../../../service/user.service';
 import { doItLater } from './../../../utils/events';
@@ -15,13 +15,17 @@ export class CatalogItemComponent implements OnInit, AfterViewInit {
   mouseover:boolean = false;
   transition:boolean = false;
  
+  @Output()
+  showDetail:EventEmitter<Product> = new EventEmitter();
 
   constructor(private userService:UserService) { }
   ngAfterViewInit(): void {
    
   }
    
-
+  showDetailProduct = (p:Product) => {
+    this.showDetail.emit(p);
+  }
   ngOnInit(): void {
   }
 

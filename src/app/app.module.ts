@@ -24,6 +24,8 @@ import { SupplierFormComponent } from './pages/transaction/supplier-form/supplie
 import { ProductFormComponent } from './pages/transaction/product-form/product-form.component';
 import { CatalogComponent } from './pages/catalog/catalog.component';
 import { CatalogItemComponent } from './pages/catalog/catalog-item/catalog-item.component';
+import { CatalogDetailComponent } from './pages/catalog/catalog-detail/catalog-detail.component';
+import { ImageCarouselComponent } from './container/image-carousel/image-carousel.component'; 
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { CatalogItemComponent } from './pages/catalog/catalog-item/catalog-item.
     SupplierFormComponent,
     ProductFormComponent,
     CatalogComponent,
-    CatalogItemComponent
+    CatalogItemComponent,
+    CatalogDetailComponent,
+    ImageCarouselComponent,
   ],
   imports: [
     BrowserModule,

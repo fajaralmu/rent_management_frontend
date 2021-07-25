@@ -3,6 +3,7 @@ import { ProductService } from './../../service/product.service';
 import { Filter } from './../../models/dto/filter';
 import { WebResponse } from './../../models/web-response';
 import { Product } from './../../models/product';
+import { doItLater } from './../../utils/events';
 
 @Component({
   selector: 'app-catalog',
@@ -13,10 +14,18 @@ export class CatalogComponent implements OnInit {
   filter:Filter = new Filter();
   items:Product[] = [];
   totalData:number = 0;
+   
+  selectedProduct:Product | undefined;
+
   constructor(private productService:ProductService) { 
     this.filter.orderBy = 'name';
     this.filter.orderType = 'asc';
   }
+
+  showDetail = (product:Product) => {
+      this.selectedProduct = product; 
+  }
+  hideDetail = () => this.selectedProduct = undefined;
 
   ngOnInit(): void {
     this.loadItems(0);
