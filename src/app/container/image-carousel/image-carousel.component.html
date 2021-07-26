@@ -1,11 +1,26 @@
-<div id="app-image-carousel" class="carousel slide" >
+ 
+<div id="app-image-carousel" class="carousel slide" #carouselItem >
   <ol class="carousel-indicators"> 
     <li style="border-width: 2px;" *ngFor="let picture of pictures, index as i"  
         [ngClass]="i == activeIndex ?'border border-dark active':'border border-dark'"  >
   </ol>
-  <div class="carousel-inner">
-    <div *ngIf="pictures.length > 0" class="carousel-item active">
-        <img style="margin:auto" class="d-block " height="400" src="{{imageAssetPath +pictures[activeIndex].name}}" />
+  <div class="carousel-inner"  >
+    <div *ngIf="pictures.length > 0" class="carousel-item active  "> 
+        <div class="carousel-item-x" 
+          [ngStyle]="{
+            'background-position-x': bgXPositions,
+            'background-image': bgUrls            
+          }
+          ">
+        </div>
+        <!-- <div  *ngIf="prevPictureURL" class="carousel-item-x" 
+          [ngStyle]="{
+            'background-position-x': activeXPos+', '+prevActiveXPos, 
+            'background-image': 'url(\''+activePictureURL+'\'), url(\''+prevPictureURL+'\')' 
+          }
+          ">
+        </div> -->
+        <!-- <img style="margin:auto" class="d-block " height="400" src="{{imageAssetPath +pictures[activeIndex].name}}" /> -->
     </div>
     <!-- <div *ngFor="let picture of pictures, index as i" [ngClass]="i == activeIndex ?'carousel-item active':'carousel-item'">
         <img class="d-block w-100" height="300" src="{{imageAssetPath +picture.name}}" />

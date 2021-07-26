@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Picture } from './../../models/picture';
 import { UserService } from './../../service/user.service';
+import { doItLater } from './../../utils/events';
 
 @Component({
   selector: 'div[app-image-carousel]',
@@ -10,11 +11,23 @@ import { UserService } from './../../service/user.service';
 export class ImageCarouselComponent implements OnInit {
 
   @Input()
-  pictures:Picture[] = [];
-  activeIndex:number = 0;
+  pictures:Picture[]      = [];
+  images:Record<string, any>  = {};
+  activeIndex:number      = 0; 
+
+  @ViewChild("carouselItem")
+  carouselItem:ElementRef<HTMLDivElement> | undefined;
+ 
   constructor(private userService:UserService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  }
+
+  get carouselItemWidth():number{
+
+    if (this.carouselItem && this.carouselItem.nativeElement){
+      return this.carouselItem.nativeElement.getBoundingClientRect().width;
+    }
+    return 0;
   }
 
   get imageAssetPath() {
@@ -25,14 +38,53 @@ export class ImageCarouselComponent implements OnInit {
     return JSON.stringify(this.pictures);
   }
 
-  next =() => {
+  next =() => { 
     this.activeIndex++;
-    this.validateIndex();
+    this.validateIndex(); 
   }
 
-  previous = () => {
+  previous = () => { 
     this.activeIndex--;
-    this.validateIndex();
+    this.validateIndex(); 
+  }
+
+  loadImage = (p:Picture, i:number) => {
+    if (this.images[p.name]) return;
+    const src= this.imageAssetPath+ p.name;
+    const image = new Image();
+    image.src = src;
+    image.onload = () => {
+      this.images[p.name] = image;
+    }
+  }
+
+  get bgUrls():string {
+    return this.pictures.map((p, i)=> {
+      this.loadImage(p, i);
+      return 'url(\''+this.imageAssetPath+ p.name+'\')'
+    } ).join(",")
+  }
+
+  get bgXPositions():string {
+    return this.pictures.map((p, i)=> this.getBackgroundXPos(p, i)).join(",")
+  }
+
+  getBackgroundXPos = (p:Picture, index:number) => {
+    if (index == this.activeIndex)
+      return '0px';
+    const casouselW = this.carouselItemWidth;
+    const imageW = this.images[p.name] && this.images[p.name].width ? this.images[p.name].width : undefined;
+    const w = imageW > casouselW ? imageW : casouselW; 
+    const xpos= index > this.activeIndex?  w+'px':  (-w) + 'px'; 
+    return xpos;
+  }
+
+  get activePictureURL():string  {
+    try {
+      return this.imageAssetPath + this.pictures[this.activeIndex].name;
+    } catch(e) {
+      return "";
+    }
   }
 
   validateIndex = () => {

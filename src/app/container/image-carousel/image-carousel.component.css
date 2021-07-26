@@ -1,0 +1,7 @@
+.carousel-item-x {
+    height:400px; 
+    /* background-position: center;  */
+    background-size: cover;
+    transition-duration: 300ms; 
+    background-repeat: no-repeat;
+}
