@@ -1,6 +1,6 @@
 <div *ngIf="product" class="shadow mb-5 bg-white"   > 
     <div  class="catalog-item"  style='background-image: url({{bgUrl}}); margin-left: 1px;'>
-        <h3 *ngIf="!bgUrl" class="pt-5 text-center  text-secondary">{{productName}}</h3>
+        <h3 *ngIf="!bgUrl" class="pt-5 text-center text-capitalize text-secondary">{{product.name}}</h3>
         <div  class="catalog-label" >
             <div (click)="showDetailProduct(product)" class="catalog-cover" (mouseover)="setMouseOver()"  (mouseout)="setMouseOut()" > </div>
                 <span style="font-size: 1.5em;" class="text-capitalize">{{productName}} </span>

@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Picture } from './../../../../../models/picture';
 import { toPicture } from './../../../../../utils/component-util';
 import { UserService } from './../../../../../service/user.service';
+ 
 
 @Component({
   selector: 'app-input-image',
@@ -14,20 +15,28 @@ export class InputImageComponent implements OnInit {
   items:Picture[] = [];
   @Output()
   update :EventEmitter<Picture[]> = new EventEmitter();
+  
+  canvas:HTMLCanvasElement;
+  canvasCtx:CanvasRenderingContext2D|null;
 
-  constructor(private userService:UserService) { }
+  loading:boolean =false;
+  constructor(private userService:UserService) { 
+    this.canvas = document.createElement('canvas');
+    this.canvasCtx = this.canvas.getContext("2d");
+  }
 
   ngOnInit(): void {
   }
 
   addPicture = (event:Event) => {
     const file = event.target as HTMLInputElement;
-    toPicture(file).then((picture:Picture|null) => {
-      if (null != picture) {
-        this.items.push(picture);
-        this.callUpdate();
-      }
-    }) .catch(console.error);
+    toPicture(file).then(this.addPictureToList) .catch(console.error);
+  }
+  addPictureToList = (picture:Picture|null) => {
+    if (null != picture) {
+      this.items.push(picture);
+      this.callUpdate();
+    }
   }
   callUpdate = () =>{
     this.update.emit(this.items);
@@ -49,5 +58,32 @@ export class InputImageComponent implements OnInit {
       return picture.base64Data;
     }
     return (this.userService.assetPath ??"")+"images/"+ picture.name;
+  }
+
+  inputByLink = () => {
+    const input:string | null = prompt("Input image link");
+    if (null == input) return;
+    this.loading = true;
+    const image = new Image();
+    image.crossOrigin = "anonymous";  
+    image.src = input;
+    image.onload = () => {
+      this.addPictureFromImage(image);
+      this.loading = false;
+    }
+    image.onerror=()=>{
+      this.loading = false;
+    }
+  }
+  addPictureFromImage = (image:any) => {
+    if (!this.canvasCtx) return;
+
+    this.canvas.width = image.width;
+    this.canvas.height = image.height;
+    this.canvasCtx.drawImage(image, 0, 0);
+    let p:Picture = new Picture();
+    p.base64Data = this.canvas.toDataURL("image/png");
+    p.name = "Image "+this.items.length;
+    this.addPictureToList(p);
   }
 }

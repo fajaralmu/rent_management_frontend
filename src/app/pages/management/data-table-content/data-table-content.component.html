@@ -1,6 +1,13 @@
 <ng-container *ngIf="property && filter">
     <tr *ngFor="let item of items, let i = index">
-        <td>{{ recordNumber(i) }}</td>
+        <td> 
+            {{recordNumber(i) }}
+        </td>
+        <td>
+            <a (click)="edit(item[property.idField])"  >
+                <i class="fas fa-edit"></i>
+            </a> 
+        </td>
         <td *ngFor="let element of property.elements" >
             <div style="min-width: 100px;" *ngIf="item[element.id] || false === item[element.id]">
                 <span *ngIf="displayedAsText(element)">
