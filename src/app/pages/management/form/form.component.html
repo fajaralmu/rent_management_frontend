@@ -16,7 +16,7 @@
             </ul>
         </div>
     </div>
-    <div class="border border-dark rounded">
+    <div class="border border-gray rounded bg-white">
         <form ngNativeValidate (submit)="submit($event)" style="padding: 10px; width: 80vw;">
             <ng-container *ngFor="let element of property.elements">
                 <app-form-group *ngIf="element.editable" label={{element.labelName}}>

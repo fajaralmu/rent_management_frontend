@@ -32,7 +32,7 @@
                     <tr>
                         <td>Stock</td>
                         <td *ngIf="product.count > 0"><strong>{{product.count}}</strong> {{product.unit.name}}</td>
-                        <td class="text-danger" *ngIf="product.count <= 0"><i>Not available</i></td>
+                        <td class="text-danger" *ngIf="!product.available || product.count <= 0"><i>Not available</i></td>
                     </tr>
                     <tr>
                         <td>Info</td>

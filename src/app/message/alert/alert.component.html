@@ -2,23 +2,24 @@
 </div>
 <div class ="modal show" style="display: block"  >
     <div class ="modal-dialog -modal-dialog-centered" 
-        style=" transition-duration: 300ms; margin-top: 30vh "
-    >
-<div class="modal-content" style= "margin-top:'5px'" >
-<div class="modal-header " >
-    <h5 class = "modal-title" id="exampleModalCenterTitle" >{{confirmAlert?"Konfirmasi":"Info"}}</h5>
-    <!-- <button onClick={props.onClose} type="button" className="close" >
-        <span aria-hidden="true" className={props.fontClassName} > <i className="fas fa-times" /> </span>
-    </button> -->
-</div>
-<div className="modal-body" style="padding: 20px" > {{message}}</div>
-<div class="modal-footer " >
-    <button #yesButton  type="button"  (click)="yesClick()" class ="btn btn-outline-primary" > Yes </button>
-     <button *ngIf="confirmAlert"  type="button"
-        (click)="noClick()" class ="btn btn-outline-secondary" > No </button> 
-</div>
-</div>
-</div>
+        [ngStyle]="{
+            'margin-top': marginTop
+        }">
+        <div class="modal-content" style= "margin-top:'5px'" >
+            <div class="modal-header " >
+                <h5 class = "modal-title" id="exampleModalCenterTitle" >{{confirmAlert?"Konfirmasi":"Info"}}</h5>
+                <!-- <button onClick={props.onClose} type="button" className="close" >
+                    <span aria-hidden="true" className={props.fontClassName} > <i className="fas fa-times" /> </span>
+                </button> -->
+            </div>
+            <div className="modal-body" style="padding: 20px" > {{message}}</div>
+            <div class="modal-footer " >
+                <button #yesButton  type="button"  (click)="yesClick()" class ="btn btn-outline-primary" > Yes </button>
+                <button *ngIf="confirmAlert"  type="button"
+                    (click)="noClick()" class ="btn btn-outline-secondary" > No </button> 
+            </div>
+            </div>
+        </div>
 
 </div>
 

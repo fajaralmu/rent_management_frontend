@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { doItLater } from './../../utils/events';
  
 
 @Component({
@@ -14,6 +15,8 @@ export class AlertComponent implements OnInit, AfterViewInit {
 
   @ViewChild('yesButton') yesButton: ElementRef<HTMLElement>|undefined;
 
+  marginTop:string = '-400px';
+
   constructor() { }
   
   ngAfterViewInit(): void {
@@ -23,15 +26,23 @@ export class AlertComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-   
+   doItLater(()=>{
+     this.marginTop = '30vh';
+   }, 10);
   }
   yesClick(): void {
-    if (this.yesClicked)
+    this.marginTop = '-400px'; 
+    doItLater(()=>{
+      if (this.yesClicked)
       this.yesClicked.emit();
+    }, 300)
   }
   noClick(): void {
-    if (this.noClicked) 
+    this.marginTop = '-400px'; 
+    doItLater(()=>{
+      if (this.noClicked)
       this.noClicked.emit();
+    }, 300);
   }
 
 
