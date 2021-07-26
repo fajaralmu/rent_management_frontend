@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Picture } from './../../models/picture';
-import { UserService } from './../../service/user.service';
-import { doItLater } from './../../utils/events';
+import { UserService } from './../../service/user.service'; 
 
 @Component({
   selector: 'div[app-image-carousel]',
@@ -23,7 +22,6 @@ export class ImageCarouselComponent implements OnInit {
   ngOnInit(): void {  }
 
   get carouselItemWidth():number{
-
     if (this.carouselItem && this.carouselItem.nativeElement){
       return this.carouselItem.nativeElement.getBoundingClientRect().width;
     }
@@ -38,17 +36,15 @@ export class ImageCarouselComponent implements OnInit {
     return JSON.stringify(this.pictures);
   }
 
-  next =() => { 
-    this.activeIndex++;
-    this.validateIndex(); 
+  next =() => {  
+    this.incrementIndex(1); 
   }
 
-  previous = () => { 
-    this.activeIndex--;
-    this.validateIndex(); 
+  previous = () => {  
+    this.incrementIndex(-1); 
   }
 
-  loadImage = (p:Picture, i:number) => {
+  loadImage = (p:Picture) => {
     if (this.images[p.name]) return;
     const src= this.imageAssetPath+ p.name;
     const image = new Image();
@@ -58,14 +54,14 @@ export class ImageCarouselComponent implements OnInit {
     }
   }
 
-  get bgUrls():string {
+  get backgroundImageURLs():string {
     return this.pictures.map((p, i)=> {
-      this.loadImage(p, i);
+      this.loadImage(p);
       return 'url(\''+this.imageAssetPath+ p.name+'\')'
     } ).join(",")
   }
 
-  get bgXPositions():string {
+  get backgroundImagePositionX():string {
     return this.pictures.map((p, i)=> this.getBackgroundXPos(p, i)).join(",")
   }
 
@@ -87,7 +83,8 @@ export class ImageCarouselComponent implements OnInit {
     }
   }
 
-  validateIndex = () => {
+  incrementIndex = (increment:number) => {
+    this.activeIndex+=increment;
     if (this.activeIndex > this.pictures.length - 1) {
       this.activeIndex = 0;
     }
