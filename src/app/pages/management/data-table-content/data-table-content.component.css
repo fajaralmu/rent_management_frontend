@@ -1,0 +1,8 @@
+.edit-icon-next-to-number:hover {
+    /* font-size: 1.0em; */
+    cursor: pointer;
+    color: black
+}
+.edit-icon-next-to-number{
+    transition-duration: 200ms;
+}

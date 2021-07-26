@@ -9,10 +9,14 @@ import { UserService } from './../../service/user.service';
 })
 export class ImageCarouselComponent implements OnInit {
 
+ 
+  images:Record<any,any>  = {};
+  activeIndex:number      = 0; 
+  
   @Input()
   pictures:Picture[]      = [];
-  images:Record<string, any>  = {};
-  activeIndex:number      = 0; 
+  @Input()
+  carouselHeight :number  = 400;
 
   @ViewChild("carouselItem")
   carouselItem:ElementRef<HTMLDivElement> | undefined;
@@ -49,6 +53,11 @@ export class ImageCarouselComponent implements OnInit {
     const src= this.imageAssetPath+ p.name;
     const image = new Image();
     image.src = src;
+    if (image.height < this.carouselHeight) {
+      const ratio = this.carouselHeight/image.height;
+      image.width = ratio * image.width;
+    }
+    
     image.onload = () => {
       this.images[p.name] = image;
     }
@@ -70,8 +79,9 @@ export class ImageCarouselComponent implements OnInit {
       return '0px';
     const casouselW = this.carouselItemWidth;
     const imageW = this.images[p.name] && this.images[p.name].width ? this.images[p.name].width : undefined;
-    const w = imageW > casouselW ? imageW : casouselW; 
+    const w =  imageW && imageW > casouselW ? imageW : casouselW; 
     const xpos= index > this.activeIndex?  w+'px':  (-w) + 'px'; 
+   
     return xpos;
   }
 

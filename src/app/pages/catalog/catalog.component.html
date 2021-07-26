@@ -12,9 +12,9 @@
               <option value="name">Sort by name</option>
               <option value="price">Sort by price</option>
             </select>
-            <select class="form-control-sm ml-2" name="sortType" [(ngModel)]="filter.orderType">
+            <select class="w-50 form-control-sm ml-2" name="sortType" [(ngModel)]="filter.orderType">
               <option value="asc">{{filter.orderBy=='price' ? 'low - high' : 'a-z'}}</option>
-              <option value="desc">{{filter.orderBy=='price' ? 'high - high' : 'z-a'}}</option>
+              <option value="desc">{{filter.orderBy=='price' ? 'high - low' : 'z-a'}}</option>
             </select>  
           </div>
           <div class="col-md-4"><input type="submit" class="btn btn-sm btn-primary" value="Search" /></div>

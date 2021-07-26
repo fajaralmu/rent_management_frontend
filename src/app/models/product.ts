@@ -11,6 +11,7 @@ export interface Product {
     pictures:Picture[];
     count:number;
     forRent:boolean;
+    available:boolean;
 }
 
 
